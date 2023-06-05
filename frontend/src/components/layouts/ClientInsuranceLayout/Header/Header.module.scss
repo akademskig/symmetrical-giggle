@@ -1,0 +1,14 @@
+@import "../../../../styles/variables.scss";
+
+.root {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  background-color: $primary-main;
+  padding: $padding-m;
+}
+
+.item {
+  color: $gray-1;
+  padding: $padding-m;
+}

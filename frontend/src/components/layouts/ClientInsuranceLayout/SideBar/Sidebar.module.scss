@@ -1,0 +1,13 @@
+@import '../../../../styles/variables.scss';
+
+.root {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  padding: $padding-l;
+  background-color: $primary-main;
+  color: $white;
+}
+.item {
+  padding: $padding-s;
+}

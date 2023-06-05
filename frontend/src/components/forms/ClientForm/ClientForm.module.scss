@@ -1,0 +1,37 @@
+@import "../../../styles/variables.scss";
+
+.root {
+  box-shadow: $box-shadow-all;
+  border-radius: $border-radius-m;
+}
+.title {
+  border-radius: $border-radius-m $border-radius-m 0 0;
+  color: $white;
+  padding: $padding-l;
+  margin: 0;
+  background-color: $primary-main;
+  text-transform: uppercase;
+  font-weight: normal;
+}
+.formFields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+.form {
+  padding: $padding-l;
+  box-sizing: border-box;
+  width: 100%;
+  padding: $padding-l;
+  & > :nth-child(n) {
+    margin-bottom: $padding-l;
+    width: 100%;
+  }
+  & > :last-child {
+    margin-bottom: 0;
+    width: 100%;
+  }
+}
+.button {
+  margin: auto
+}

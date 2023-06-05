@@ -1,0 +1,48 @@
+@import "../../../styles/variables.scss";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+.input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  border-radius: $border-radius-s;
+  border: 1px solid $gray-1;
+  padding: $padding-m;
+  width: 100%;
+
+  &[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    width: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+  }
+}
+.calendarIcon {
+  right: 12px;
+  top: 11px;
+  position: absolute;
+  color: $secondary-dark;
+  pointer-events: none;
+}
+.wrapper {
+  width: 100%;
+  position: relative;
+}
+.errorMessage {
+  font-size: 0.9rem;
+  color: $error;
+  line-height: 1;
+}
