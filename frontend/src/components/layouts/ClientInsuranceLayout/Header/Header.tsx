@@ -1,21 +1,26 @@
-import { useForm } from "react-hook-form";
-import Checkbox from "../../../common/Checkbox/Checkbox";
-import styles from "./Header.module.scss";
-import priceModifiers from "./priceModifiers";
+import Checkbox from '../../../common/Checkbox/Checkbox';
+import styles from './Header.module.scss';
+
+import { useToggleProducts } from '../../../hooks/useToggleProducts';
+import { useMemo } from 'react';
 
 const Header = () => {
-  const { register, watch } = useForm({
-    defaultValues: priceModifiers.reduce<Record<string, boolean>>((a, v) => {
-      a[v.label] = v.defaultValue;
-      return a;
-    }, {}),
-  });
-  const fields = watch();
+  const { selectedProducts, discounts, onToggle } = useToggleProducts();
+  const selectedProductids = useMemo(
+    () => selectedProducts.map((p) => p._id),
+    [selectedProducts]
+  );
+  console.log(selectedProductids);
   return (
     <div className={styles.root}>
-      {priceModifiers.map((pm, i) => (
+      {(discounts || []).map((pm, i) => (
         <div key={i} className={styles.item}>
-          <Checkbox registerFields={register(pm.id)} label={pm.label} />
+          <Checkbox
+            name={pm._id}
+            value={selectedProductids.includes(pm._id)}
+            label={pm.name}
+            onToggle={onToggle}
+          />
         </div>
       ))}
     </div>

@@ -1,18 +1,12 @@
-import {
-  ButtonHTMLAttributes,
-  MouseEventHandler,
-  useCallback,
-} from "react";
+import { ButtonHTMLAttributes, MouseEventHandler, useCallback } from 'react';
 
-import styles from "./Button.module.scss";
-
+import styles from './Button.module.scss';
 
 const Button = ({
   children,
   onClick,
   ...rest
-}:ButtonHTMLAttributes<HTMLButtonElement>
-) => {
+}: ButtonHTMLAttributes<HTMLButtonElement>) => {
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
       onClick && onClick(e);

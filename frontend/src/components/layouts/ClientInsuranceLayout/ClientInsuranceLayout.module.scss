@@ -3,16 +3,16 @@
   height: 100vh;
   grid-template-columns: auto 1fr;
   grid-template-rows: 60px auto;
-  >:nth-child(1) {
+  > :nth-child(1) {
     grid-area: head;
   }
-  >:nth-child(2) {
+  > :nth-child(2) {
     grid-area: main;
   }
-  >:nth-child(3) {
+  > :nth-child(3) {
     grid-area: side;
   }
   grid-template-areas:
-    "head head head"
-    "main main side";
+    'head head head'
+    'main main side';
 }

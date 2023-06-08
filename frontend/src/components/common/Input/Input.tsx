@@ -1,7 +1,7 @@
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
-import styles from "./Input.module.scss";
-import { InputHTMLAttributes } from "react";
-import { FaCalendarDay } from "react-icons/fa";
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
+import styles from './Input.module.scss';
+import { InputHTMLAttributes } from 'react';
+import { FaCalendarDay } from 'react-icons/fa';
 
 type InputProps = {
   label: string;
@@ -26,7 +26,7 @@ const Input = ({
           {...inputProps}
           type={type}
         />
-        {type === "date" && <FaCalendarDay className={styles.calendarIcon} />}
+        {type === 'date' && <FaCalendarDay className={styles.calendarIcon} />}
       </div>
       {error && <span className={styles.errorMessage}>{error.message}</span>}
     </div>
