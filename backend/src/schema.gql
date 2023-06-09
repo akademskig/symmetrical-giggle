@@ -1,0 +1,102 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Cart {
+  basePrice: Float!
+  products: [CartProduct!]!
+  totalPrice: Float!
+}
+
+type CartProduct {
+  _id: ID!
+  amount: Float!
+  name: String!
+  price: Float!
+  priceBase: Float!
+  type: Float!
+}
+
+type Client {
+  _id: ID!
+  birthDate: String!
+  cart: Cart!
+  city: String!
+  name: String!
+  vehiclePower: Int!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input GetAvailableProductsInput {
+  clientId: ID!
+}
+
+type GetAvailableProductsResponse {
+  _id: ID!
+  amount: Float!
+  mandatory: Boolean
+  name: String!
+  priceBase: PriceBase!
+  prices: [Price!]!
+  type: ProductTypes!
+}
+
+type Mutation {
+  cart(input: ToggleProductInput!): Cart!
+  client(input: SubmitClientDataInput!): Client!
+}
+
+type Price {
+  amount: Float!
+  validFor: ValidFor
+}
+
+enum PriceBase {
+  BASE_PRICE
+  COVERAGES_TOTAL
+  FIXED_PRICE
+  TOTAL_PRICE
+  VEHICLE_POWER
+}
+
+enum ProductTypes {
+  BASE_COVERAGE
+  COVERAGE
+  DISCOUNT
+  SURCHARGE
+}
+
+type Query {
+  products(input: GetAvailableProductsInput!): [GetAvailableProductsResponse!]!
+  test: String!
+}
+
+input SubmitClientDataInput {
+  birthDate: DateTime!
+  city: String!
+  name: String!
+  priceMatch: Float
+  vehiclePower: Float!
+  voucher: Float
+}
+
+input ToggleProductInput {
+  clientId: ID!
+  productId: ID!
+}
+
+type ValidFor {
+  age: ValidForLimits
+  cities: [String!]
+  coverageAmount: ValidForLimits
+  vehiclePower: ValidForLimits
+}
+
+type ValidForLimits {
+  max: Float!
+  min: Float
+}
