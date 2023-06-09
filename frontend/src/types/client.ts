@@ -1,4 +1,4 @@
-import { PriceBase } from './product';
+import { PriceBase, ProductType } from './product';
 
 export interface CartProduct {
   _id: string;
@@ -6,6 +6,7 @@ export interface CartProduct {
   priceBase: PriceBase;
   price: number;
   name: string;
+  type: ProductType;
 }
 
 export interface Cart {

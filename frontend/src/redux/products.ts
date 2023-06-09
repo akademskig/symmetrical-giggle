@@ -1,5 +1,6 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { Product, ProductType } from '../types/product';
+import { createDraftSafeSelector, createSlice } from '@reduxjs/toolkit';
+import { ProductType } from '../types/product';
+import { State } from './store';
 
 export const productsSlice = createSlice({
   name: 'products',
@@ -8,22 +9,20 @@ export const productsSlice = createSlice({
     setProducts: (state, action) => action.payload,
   },
 });
-export const getProducts = createSelector(
-  (state: { products: Product[] }) => state,
+
+const selectSelf = (state: State) => state;
+
+export const getProducts = createDraftSafeSelector(
+  selectSelf,
   (state) => state.products
 );
-export const getCoverages = createSelector(
-  (state: { products: Product[] }) => state,
-  (state) => {
-    return (state?.products || []).filter(
-      (p) => p.type === ProductType.COVERAGE || p.type === ProductType.SURCHARGE
-    );
-  }
-);
-export const getDiscounts = createSelector(
-  (state: { products: Product[] }) => state,
-  (state) =>
-    (state?.products || []).filter((p) => p.type === ProductType.DISCOUNT)
+export const getCoverages = createDraftSafeSelector(selectSelf, (state) => {
+  return (state?.products || []).filter(
+    (p) => p.type === ProductType.COVERAGE || p.type === ProductType.SURCHARGE
+  );
+});
+export const getDiscounts = createDraftSafeSelector(selectSelf, (state) =>
+  (state?.products || []).filter((p) => p.type === ProductType.DISCOUNT)
 );
 
 export const { setProducts } = productsSlice.actions;

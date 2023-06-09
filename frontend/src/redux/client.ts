@@ -1,5 +1,6 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { Client } from '../types/client';
+import { State } from './store';
+import { ProductType } from '../types/product';
 
 export const clientSlice = createSlice({
   name: 'client',
@@ -14,12 +15,43 @@ export const clientSlice = createSlice({
     },
   },
 });
+
+const selectSelf = (state: State) => state;
+
 export const getClientId = createSelector(
-  (state: { client: Client }) => state,
+  selectSelf,
   (state) => state.client._id
 );
-export const getSelectedProducts = createSelector(
-  (state: { client: Client }) => state,
+export const getCart = createSelector(
+  selectSelf,
+  (state) => state.client?.cart
+);
+export const getCartProducts = createSelector(
+  selectSelf,
   (state) => state.client?.cart?.products || []
 );
+export const getCartCoverages = createSelector(
+  selectSelf,
+  (state) =>
+    (state.client?.cart?.products || []).filter(
+      (p) =>
+        p.type === ProductType.COVERAGE || p.type === ProductType.BASE_COVERAGE
+    ) || []
+);
+export const getCartDiscounts = createSelector(
+  selectSelf,
+  (state) =>
+    (state.client?.cart?.products || []).filter(
+      (p) => p.type === ProductType.DISCOUNT
+    ) || []
+);
+
+export const getCartSurcharges = createSelector(
+  selectSelf,
+  (state) =>
+    (state.client?.cart?.products || []).filter(
+      (p) => p.type === ProductType.SURCHARGE
+    ) || []
+);
+
 export const { setClient, setCart } = clientSlice.actions;

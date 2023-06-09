@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { getCoverages, getDiscounts } from '../../redux/products';
-import { getClientId, getSelectedProducts, setCart } from '../../redux/client';
+import { getClientId, getCartProducts, setCart } from '../../redux/client';
 import { useDispatch } from 'react-redux';
 import { useMutation } from '@apollo/client';
 import { ChangeHandler } from 'react-hook-form';
@@ -14,7 +14,7 @@ export const useToggleProducts = () => {
   const coverages = useSelector(getCoverages);
 
   const clientId = useSelector(getClientId);
-  const selectedProducts = useSelector(getSelectedProducts);
+  const cartProducts = useSelector(getCartProducts);
   const { refetch } = useAvalableProducts();
   const dispatch = useDispatch();
   const [toggleProducts] = useMutation<{ cart: Cart }>(TOGGLE_PRODUCT);
@@ -34,6 +34,6 @@ export const useToggleProducts = () => {
     onToggle,
     discounts,
     coverages,
-    selectedProducts,
+    cartProducts,
   };
 };

@@ -3,14 +3,17 @@ import styles from './Header.module.scss';
 
 import { useToggleProducts } from '../../../hooks/useToggleProducts';
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { getCart } from '../../../../redux/client';
 
 const Header = () => {
-  const { selectedProducts, discounts, onToggle } = useToggleProducts();
+  const { cartProducts, discounts, onToggle } = useToggleProducts();
   const selectedProductids = useMemo(
-    () => selectedProducts.map((p) => p._id),
-    [selectedProducts]
+    () => cartProducts.map((p) => p._id),
+    [cartProducts]
   );
-  console.log(selectedProductids);
+  const cart = useSelector(getCart);
+  console.log(cart, 'cp');
   return (
     <div className={styles.root}>
       {(discounts || []).map((pm, i) => (

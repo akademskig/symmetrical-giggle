@@ -1,6 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { productsSlice } from './products';
 import { clientSlice } from './client';
+import { Product } from '../types/product';
+import { Client } from '../types/client';
+
+export type State = {
+  products: Product[];
+  client: Client;
+};
 
 const reducer = combineReducers({
   products: productsSlice.reducer,
@@ -9,5 +16,4 @@ const reducer = combineReducers({
 export const store = configureStore({
   reducer,
 });
-store.subscribe(() => console.log(store.getState()));
 export default store;

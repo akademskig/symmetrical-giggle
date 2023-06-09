@@ -1,6 +1,7 @@
 export enum ProductType {
   DISCOUNT = 'DISCOUNT',
   COVERAGE = 'COVERAGE',
+  BASE_COVERAGE = 'BASE_COVERAGE',
   SURCHARGE = 'SURCHARGE',
 }
 

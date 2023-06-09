@@ -4,13 +4,13 @@ import { useToggleProducts } from '../../../hooks/useToggleProducts';
 import styles from './Sidebar.module.scss';
 
 const SideBar = () => {
-  const { selectedProducts, coverages, onToggle } = useToggleProducts();
+  const { cartProducts, coverages, onToggle } = useToggleProducts();
 
   const selectedProductids = useMemo(
-    () => selectedProducts.map((p) => p._id),
-    [selectedProducts]
+    () => cartProducts?.map((p) => p._id),
+    [cartProducts]
   );
-
+  console.log(coverages);
   return (
     <div className={styles.root}>
       {coverages.map((c, i) => (
