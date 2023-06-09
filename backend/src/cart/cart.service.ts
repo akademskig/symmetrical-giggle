@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { round } from 'lodash';
 import { Model } from 'mongoose';
 import { ProductType } from 'src/products/products.schema';
 import { CartProduct, Client } from 'src/clients/clients.schema';
@@ -78,11 +79,12 @@ export class CartService {
   }) {
     switch (cartProduct.priceBase) {
       case PriceBase.FIXED_PRICE:
-        return cartProduct.amount;
+        return round(cartProduct.amount, 2);
       case PriceBase.VEHICLE_POWER:
-        return vehiclePower * (cartProduct.amount / 100);
-      case (PriceBase.BASE_PRICE, PriceBase.COVERAGES_TOTAL):
-        return basePrice * (cartProduct.amount / 100);
+        return round(vehiclePower * (cartProduct.amount / 100), 2);
+      case PriceBase.BASE_PRICE:
+      case PriceBase.COVERAGES_TOTAL:
+        return round(basePrice * (cartProduct.amount / 100), 2);
       default:
         return 0;
     }

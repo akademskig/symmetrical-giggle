@@ -8,19 +8,19 @@ export class CartProduct {
   @Field(() => ID, { nullable: false })
   _id: ObjectId;
 
-  @Field({ defaultValue: 0 })
+  @Field(() => Float, { defaultValue: 0 })
   amount: number;
 
-  @Field({ nullable: false })
+  @Field(() => PriceBase, { nullable: false })
   priceBase: PriceBase;
 
-  @Field({ defaultValue: 0 })
+  @Field(() => Float, { defaultValue: 0 })
   price: number;
 
-  @Field({ nullable: false })
+  @Field(() => String, { nullable: false })
   name: string;
 
-  @Field({ nullable: false })
+  @Field(() => ProductType, { nullable: false })
   type: ProductType;
 }
 

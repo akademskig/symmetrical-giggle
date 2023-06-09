@@ -13,8 +13,8 @@ type CartProduct {
   amount: Float!
   name: String!
   price: Float!
-  priceBase: Float!
-  type: Float!
+  priceBase: PriceBase!
+  type: ProductTypes!
 }
 
 type Client {

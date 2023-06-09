@@ -94,7 +94,6 @@ export class ProductsService {
         $sort: { name: 1 },
       },
     ]);
-    console.log(products);
     return products;
   }
 }

@@ -3,7 +3,7 @@ import { PriceBase, ProductType } from 'src/products/products.schema';
 export const products = [
   {
     type: ProductType.BASE_COVERAGE,
-    name: 'Vehicle insurance',
+    name: 'Base insurance',
     priceBase: PriceBase.FIXED_PRICE,
     prices: [
       {
@@ -18,6 +18,7 @@ export const products = [
         amount: 180,
       },
     ],
+    mandatory: true,
   },
   {
     type: ProductType.COVERAGE,
