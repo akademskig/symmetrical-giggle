@@ -1,7 +1,7 @@
 import { Field, Float, ID, Int, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ObjectId } from 'mongodb';
-import { PriceBase, ProductType } from 'src/products/products.schema';
+import { Currency, PriceBase, ProductType } from 'src/products/products.schema';
 
 @ObjectType()
 export class CartProduct {
@@ -22,6 +22,9 @@ export class CartProduct {
 
   @Field(() => ProductType, { nullable: false })
   type: ProductType;
+
+  @Field(() => Currency, { nullable: false })
+  currency: Currency;
 }
 
 @ObjectType()
@@ -43,7 +46,7 @@ export class Client {
   _id: ObjectId;
 
   @Field(() => String, { nullable: false })
-  @Prop({ required: true })
+  @Prop({ required: true, type: String })
   name: string;
 
   @Field(() => String, { nullable: false })
@@ -57,6 +60,10 @@ export class Client {
   @Field(() => Int, { nullable: false })
   @Prop({ required: true })
   vehiclePower: number;
+
+  @Field(() => Int, { nullable: true })
+  @Prop({ type: String })
+  voucher: number;
 
   @Field(() => Cart)
   @Prop({ default: new Cart() })

@@ -22,6 +22,10 @@ export const getClientId = createSelector(
   selectSelf,
   (state) => state.client._id
 );
+export const getVoucher = createSelector(
+  selectSelf,
+  (state) => state.client.voucher
+);
 export const getCart = createSelector(
   selectSelf,
   (state) => state.client?.cart
@@ -34,8 +38,7 @@ export const getCartCoverages = createSelector(
   selectSelf,
   (state) =>
     (state.client?.cart?.products || []).filter(
-      (p) =>
-        p.type === ProductType.COVERAGE || p.type === ProductType.BASE_COVERAGE
+      (p) => p.type === ProductType.COVERAGE || p.type === ProductType.SURCHARGE
     ) || []
 );
 export const getCartDiscounts = createSelector(

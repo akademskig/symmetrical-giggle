@@ -14,6 +14,9 @@ export enum ProductType {
   SURCHARGE,
   BASE_COVERAGE,
 }
+export enum Currency {
+  EUR,
+}
 export enum PriceBase {
   BASE_PRICE,
   VEHICLE_POWER,
@@ -26,6 +29,9 @@ registerEnumType(ProductType, {
 });
 registerEnumType(PriceBase, {
   name: 'PriceBase',
+});
+registerEnumType(Currency, {
+  name: 'Currency',
 });
 
 @ObjectType()
@@ -75,6 +81,10 @@ export class Product {
   @Field(() => String, { nullable: false })
   @Prop({ required: true })
   name: string;
+
+  @Field(() => Currency, { nullable: false })
+  @Prop({ required: true })
+  currency: Currency;
 
   @Field(() => ProductType, { nullable: false })
   @Prop({ required: true })

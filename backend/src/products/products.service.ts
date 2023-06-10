@@ -88,6 +88,7 @@ export class ProductsService {
           type: { $first: '$type' },
           priceBase: { $first: '$priceBase' },
           mandatory: { $first: '$mandatory' },
+          currency: { $first: '$currency' },
         },
       },
       {

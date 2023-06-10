@@ -1,4 +1,4 @@
-import { PriceBase, ProductType } from './product';
+import { Currency, PriceBase, ProductType } from './product';
 
 export interface CartProduct {
   _id: string;
@@ -7,6 +7,7 @@ export interface CartProduct {
   price: number;
   name: string;
   type: ProductType;
+  currency: Currency;
 }
 
 export interface Cart {
@@ -22,4 +23,5 @@ export interface Client {
   city: string;
   vehiclePower: string;
   cart: Cart;
+  voucher: number;
 }

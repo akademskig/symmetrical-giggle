@@ -8,6 +8,7 @@ export const CLIENT_FRAGMENT = gql`
     city
     birthDate
     vehiclePower
+    voucher
     cart {
       ...CartFragment
     }

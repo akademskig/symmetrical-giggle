@@ -12,11 +12,9 @@ export enum PriceBase {
   TOTAL_PRICE,
 }
 
-export interface Price {
-  base: PriceBase;
-  amount: number;
+export enum Currency {
+  EUR = 'EUR',
 }
-
 export interface Condition {
   age: { min?: number; max?: number };
   vehiclePower: { min?: number; max?: number };
@@ -27,6 +25,7 @@ export interface Product {
   _id: string;
   name: string;
   type: ProductType;
-  price: Price;
-  conditions: Condition;
+  priceBase: PriceBase;
+  price: number;
+  currency: Currency.EUR;
 }

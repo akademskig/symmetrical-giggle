@@ -7,6 +7,7 @@ export const CART_PRODUCT_FRAGMENT = gql`
     type
     price
     amount
+    currency
   }
 `;
 export const CART_FRAGMENT = gql`

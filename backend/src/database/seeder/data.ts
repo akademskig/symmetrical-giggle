@@ -1,10 +1,11 @@
-import { PriceBase, ProductType } from 'src/products/products.schema';
+import { Currency, PriceBase, ProductType } from 'src/products/products.schema';
 
 export const products = [
   {
     type: ProductType.BASE_COVERAGE,
     name: 'Base insurance',
     priceBase: PriceBase.FIXED_PRICE,
+    currency: Currency.EUR,
     prices: [
       {
         amount: 120,
@@ -24,6 +25,7 @@ export const products = [
     type: ProductType.COVERAGE,
     name: 'AO+',
     priceBase: PriceBase.FIXED_PRICE,
+    currency: Currency.EUR,
     prices: [
       {
         amount: 30,
@@ -38,6 +40,7 @@ export const products = [
     type: ProductType.COVERAGE,
     name: 'Bonus Protection',
     priceBase: PriceBase.BASE_PRICE,
+    currency: Currency.EUR,
     prices: [
       {
         amount: 12,
@@ -48,6 +51,7 @@ export const products = [
     type: ProductType.COVERAGE,
     name: 'Glass Protection',
     priceBase: PriceBase.VEHICLE_POWER,
+    currency: Currency.EUR,
     prices: [
       {
         amount: 80,
@@ -58,6 +62,7 @@ export const products = [
     type: ProductType.DISCOUNT,
     priceBase: PriceBase.TOTAL_PRICE,
     name: 'VIP Discount',
+    currency: Currency.EUR,
     prices: [
       {
         amount: 5,
@@ -72,6 +77,7 @@ export const products = [
     priceBase: PriceBase.BASE_PRICE,
     name: 'Commercial Discount',
     mandatory: true,
+    currency: Currency.EUR,
     prices: [
       {
         amount: 10,
@@ -83,6 +89,7 @@ export const products = [
     priceBase: PriceBase.COVERAGES_TOTAL,
     name: 'Adviser Discount',
     mandatory: true,
+    currency: Currency.EUR,
     prices: [
       {
         amount: 20,
@@ -94,6 +101,7 @@ export const products = [
     type: ProductType.SURCHARGE,
     priceBase: PriceBase.TOTAL_PRICE,
     name: 'Strong car surcharge',
+    currency: Currency.EUR,
     prices: [
       {
         amount: 10,
