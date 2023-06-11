@@ -9,7 +9,7 @@ import { CartService } from 'src/cart/cart.service';
 export class ClientsService {
   constructor(
     @InjectModel(Client.name) private clientModel: Model<Client>,
-    private cartService: CartService,
+    private cartService: CartService
   ) {}
 
   async update(input: SubmitClientDataInput) {
