@@ -1,17 +1,17 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { productsSlice } from './products';
-import { clientSlice } from './client';
+import { customerSlice } from './customer';
 import { Product } from '../types/product';
-import { Client } from '../types/client';
+import { Customer } from '../types/customer';
 
 export type State = {
   products: Product[];
-  client: Client;
+  customer: Customer;
 };
 
 const reducer = combineReducers({
   products: productsSlice.reducer,
-  client: clientSlice.reducer,
+  customer: customerSlice.reducer,
 });
 export const store = configureStore({
   reducer,

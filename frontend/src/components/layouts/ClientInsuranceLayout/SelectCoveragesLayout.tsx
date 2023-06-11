@@ -2,12 +2,12 @@ import { ReactNode } from 'react';
 import SideBar from './SideBar/SideBar';
 import Header from './Header/Header';
 
-import styles from './ClientInsuranceLayout.module.scss';
+import styles from './SelectCoveragesLayout.module.scss';
 
 type MainLayoutProps = {
   children: ReactNode;
 };
-const MainLayout = ({ children }: MainLayoutProps) => {
+const SelectCoveragesLayout = ({ children }: MainLayoutProps) => {
   return (
     <div className={styles.root}>
       <Header />
@@ -16,4 +16,4 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     </div>
   );
 };
-export default MainLayout;
+export default SelectCoveragesLayout;

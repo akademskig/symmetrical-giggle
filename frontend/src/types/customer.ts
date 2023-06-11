@@ -16,7 +16,7 @@ export interface Cart {
   totalPrice: number;
 }
 
-export interface Client {
+export interface Customer {
   _id: string;
   name: string;
   birthDate: Date;

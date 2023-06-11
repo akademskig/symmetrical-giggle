@@ -1,19 +1,19 @@
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { getCoverages, getDiscounts } from '../../redux/products';
-import { getClientId, getCartProducts, setCart } from '../../redux/client';
+import { getCustomerId, getCartProducts, setCart } from '../../redux/customer';
 import { useDispatch } from 'react-redux';
 import { useMutation } from '@apollo/client';
 import { ChangeHandler } from 'react-hook-form';
 import { useAvalableProducts } from './useAvailableProducts';
 import { TOGGLE_PRODUCT } from '../../apollo/cart';
-import { Cart } from '../../types/client';
+import { Cart } from '../../types/customer';
 
 export const useToggleProducts = () => {
   const discounts = useSelector(getDiscounts);
   const coverages = useSelector(getCoverages);
 
-  const clientId = useSelector(getClientId);
+  const customerId = useSelector(getCustomerId);
   const cartProducts = useSelector(getCartProducts);
   const { refetch } = useAvalableProducts();
   const dispatch = useDispatch();
@@ -22,12 +22,12 @@ export const useToggleProducts = () => {
   const onToggle: ChangeHandler = useCallback(
     async (e) => {
       const { data } = await toggleProducts({
-        variables: { input: { productId: e.target.name, clientId } },
+        variables: { input: { productId: e.target.name, customerId } },
       });
-      refetch({ input: { clientId } });
+      refetch({ input: { customerId } });
       dispatch(setCart(data?.cart));
     },
-    [clientId, dispatch, refetch, toggleProducts]
+    [customerId, dispatch, refetch, toggleProducts]
   );
 
   return {

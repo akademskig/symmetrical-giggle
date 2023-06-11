@@ -2,11 +2,11 @@ import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { State } from './store';
 import { ProductType } from '../types/product';
 
-export const clientSlice = createSlice({
-  name: 'client',
+export const customerSlice = createSlice({
+  name: 'customer',
   initialState: {},
   reducers: {
-    setClient: (state, action) => action.payload,
+    setCustomer: (state, action) => action.payload,
     setCart: (state, action) => {
       return {
         ...state,
@@ -18,38 +18,38 @@ export const clientSlice = createSlice({
 
 const selectSelf = (state: State) => state;
 
-export const getClientId = createSelector(
+export const getCustomerId = createSelector(
   selectSelf,
-  (state) => state.client._id
+  (state) => state.customer._id
 );
 export const getVoucher = createSelector(
   selectSelf,
-  (state) => state.client.voucher
+  (state) => state.customer.voucher
 );
 export const getCart = createSelector(
   selectSelf,
-  (state) => state.client?.cart
+  (state) => state.customer?.cart
 );
 export const getCartProducts = createSelector(
   selectSelf,
-  (state) => state.client?.cart?.products || []
+  (state) => state.customer?.cart?.products || []
 );
 export const getCartCoverages = createSelector(
   selectSelf,
   (state) =>
-    (state.client?.cart?.products || []).filter(
+    (state.customer?.cart?.products || []).filter(
       (p) => p.type === ProductType.COVERAGE || p.type === ProductType.SURCHARGE
     ) || []
 );
 export const getCartBaseCoverage = createSelector(selectSelf, (state) =>
-  (state.client?.cart?.products || []).find(
+  (state.customer?.cart?.products || []).find(
     (p) => p.type === ProductType.BASE_COVERAGE
   )
 );
 export const getCartDiscounts = createSelector(
   selectSelf,
   (state) =>
-    (state.client?.cart?.products || []).filter(
+    (state.customer?.cart?.products || []).filter(
       (p) => p.type === ProductType.DISCOUNT
     ) || []
 );
@@ -57,9 +57,9 @@ export const getCartDiscounts = createSelector(
 export const getCartSurcharges = createSelector(
   selectSelf,
   (state) =>
-    (state.client?.cart?.products || []).filter(
+    (state.customer?.cart?.products || []).filter(
       (p) => p.type === ProductType.SURCHARGE
     ) || []
 );
 
-export const { setClient, setCart } = clientSlice.actions;
+export const { setCustomer, setCart } = customerSlice.actions;

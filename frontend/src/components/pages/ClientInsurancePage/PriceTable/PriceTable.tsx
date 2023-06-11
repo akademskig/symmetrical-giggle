@@ -5,7 +5,7 @@ import {
   getCartCoverages,
   getCartDiscounts,
   getVoucher,
-} from '../../../../redux/client';
+} from '../../../../redux/customer';
 import styles from './PriceTable.module.scss';
 import { ProductType } from '../../../../types/product';
 import { useIntl } from 'react-intl';

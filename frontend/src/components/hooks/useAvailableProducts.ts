@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getClientId } from '../../redux/client';
+import { getCustomerId } from '../../redux/customer';
 import { useQuery } from '@apollo/client';
 import { GET_AVAILABLE_PRODUCTS } from '../../apollo/products';
 import { useEffect } from 'react';
 import { setProducts } from '../../redux/products';
 
 export const useAvalableProducts = () => {
-  const clientId = useSelector(getClientId);
+  const customerId = useSelector(getCustomerId);
   const dispatch = useDispatch();
   const { data, refetch } = useQuery(GET_AVAILABLE_PRODUCTS, {
-    variables: { input: { clientId } },
-    skip: !clientId,
+    variables: { input: { customerId } },
+    skip: !customerId,
   });
 
   useEffect(() => {

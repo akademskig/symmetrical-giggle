@@ -1,19 +1,19 @@
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-import styles from './ClientForm.module.scss';
+import styles from './CustomerForm.module.scss';
 import Input from '../../common/Input/Input';
-import clientFormFields from './clientFormFields';
+import customerFormFields from './customerFormFields';
 import Button from '../../common/Button/Button';
 import { useMutation } from '@apollo/client';
 import { useDispatch } from 'react-redux';
-import { SUBMIT_CLIENT_DATA } from '../../../apollo/client';
-import { getClientId, setClient } from '../../../redux/client';
+import { SUBMIT_CLIENT_DATA } from '../../../apollo/customer';
+import { getCustomerId, setCustomer } from '../../../redux/customer';
 import { useSelector } from 'react-redux';
 import { useAvalableProducts } from '../../hooks/useAvailableProducts';
 import { useIntl } from 'react-intl';
-import { messages } from './clientForm.messages';
+import { messages } from './customerForm.messages';
 
-const ClientForm = () => {
+const CustomerForm = () => {
   const dispatch = useDispatch();
   const { formatMessage } = useIntl();
   const {
@@ -21,7 +21,7 @@ const ClientForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: clientFormFields.reduce<Record<string, string | number>>(
+    defaultValues: customerFormFields.reduce<Record<string, string | number>>(
       (a, v) => {
         a[v.id] = v.defaultValue;
         return a;
@@ -31,18 +31,18 @@ const ClientForm = () => {
   });
 
   const { refetch } = useAvalableProducts();
-  const clientId = useSelector(getClientId);
-  const [submitClientData] = useMutation(SUBMIT_CLIENT_DATA);
+  const customerId = useSelector(getCustomerId);
+  const [submitCustomerData] = useMutation(SUBMIT_CLIENT_DATA);
 
   const onSubmit = useCallback(
     async (values: any) => {
-      const { data: clientData } = await submitClientData({
+      const { data: customerData } = await submitCustomerData({
         variables: { input: values },
       });
-      dispatch(setClient(clientData.client));
-      await refetch({ input: { clientId } });
+      dispatch(setCustomer(customerData.customer));
+      await refetch({ input: { customerId } });
     },
-    [clientId, dispatch, refetch, submitClientData]
+    [customerId, dispatch, refetch, submitCustomerData]
   );
 
   return (
@@ -50,7 +50,7 @@ const ClientForm = () => {
       <h3 className={styles.title}>{formatMessage(messages.formTitle)}</h3>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <div className={styles.formFields}>
-          {clientFormFields.map((f, i) => (
+          {customerFormFields.map((f, i) => (
             <Input
               key={i}
               registerFields={register(f.id, {
@@ -74,4 +74,4 @@ const ClientForm = () => {
   );
 };
 
-export default ClientForm;
+export default CustomerForm;
