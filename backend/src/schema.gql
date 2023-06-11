@@ -11,6 +11,7 @@ type Cart {
 type CartProduct {
   _id: ID!
   amount: Float!
+  currency: Currency!
   name: String!
   price: Float!
   priceBase: PriceBase!
@@ -23,7 +24,13 @@ type Client {
   cart: Cart!
   city: String!
   name: String!
+  priceMatch: Float
   vehiclePower: Int!
+  voucher: Int
+}
+
+enum Currency {
+  EUR
 }
 
 """
@@ -38,6 +45,7 @@ input GetAvailableProductsInput {
 type GetAvailableProductsResponse {
   _id: ID!
   amount: Float!
+  currency: Currency!
   mandatory: Boolean
   name: String!
   priceBase: PriceBase!

@@ -62,8 +62,12 @@ export class Client {
   vehiclePower: number;
 
   @Field(() => Int, { nullable: true })
-  @Prop({ type: String })
+  @Prop({ type: Number })
   voucher: number;
+
+  @Field(() => Float, { nullable: true })
+  @Prop({ type: Number })
+  priceMatch: number;
 
   @Field(() => Cart)
   @Prop({ default: new Cart() })
