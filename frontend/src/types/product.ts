@@ -28,4 +28,5 @@ export interface Product {
   priceBase: PriceBase;
   price: number;
   currency: Currency.EUR;
+  mandatory: boolean;
 }

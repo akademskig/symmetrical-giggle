@@ -1,14 +1,14 @@
 import { ChangeHandler } from 'react-hook-form';
 import styles from './Checkbox.module.scss';
+import { InputHTMLAttributes } from 'react';
 
-type InputType = {
+type InputType = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
-  name: string;
-  value: boolean;
+  checked: boolean;
   onToggle?: ChangeHandler;
 };
 
-const Checkbox = ({ label, value, onToggle, name }: InputType) => {
+const Checkbox = ({ label, checked, onToggle, name, disabled }: InputType) => {
   return (
     <div className={styles.root}>
       <label className={styles.control}>
@@ -17,7 +17,8 @@ const Checkbox = ({ label, value, onToggle, name }: InputType) => {
           className={styles.input}
           name={name}
           onChange={onToggle}
-          checked={value}
+          checked={checked}
+          disabled={disabled}
         />
         <span className={styles.label}>{label}</span>
       </label>

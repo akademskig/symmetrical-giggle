@@ -10,16 +10,16 @@ const SideBar = () => {
     () => cartProducts?.map((p) => p._id),
     [cartProducts]
   );
-  console.log(coverages);
   return (
     <div className={styles.root}>
       {coverages.map((c, i) => (
         <div key={i} className={styles.item}>
           <Checkbox
             label={c.name}
-            value={selectedProductids.includes(c._id)}
+            checked={selectedProductids.includes(c._id)}
             name={c._id}
             onToggle={onToggle}
+            disabled={c.mandatory}
           />
         </div>
       ))}
