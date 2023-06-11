@@ -7,7 +7,7 @@ export const messages = defineMessages({
   },
   formTitle: {
     id: 'formTitle',
-    defaultMessage: 'Client Data',
+    defaultMessage: 'Customer Data',
   },
   errorRequired: {
     id: 'errorRequired',
