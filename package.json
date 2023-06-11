@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format:fix": "prettier -w ."
+    "format:fix": "prettier -w .",
+    "docker:up": "docker-compose -f docker-compose.yml up -d",
+    "docker:down": "docker-compose -f docker-compose.yml down --remove-orphans"
   },
   "keywords": [],
   "author": "",

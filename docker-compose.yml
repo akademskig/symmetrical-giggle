@@ -1,0 +1,32 @@
+version: '3'
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - 80:80
+    restart: always
+    networks:
+      - kompare-app
+
+  backend:
+    build: ./backend
+    ports:
+      - 4001:4000
+    restart: always
+    networks:
+      - kompare-app
+    depends_on:
+      - database
+
+  database:
+    image: mongo
+    ports:
+      - 27018:27017
+    volumes:
+      - ./mongo/data:/data/db
+    networks:
+      - kompare-app
+
+networks:
+  kompare-app:
+    driver: bridge

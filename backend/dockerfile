@@ -1,0 +1,14 @@
+FROM node:20-slim
+
+WORKDIR /usr/src/marta/backend
+
+COPY package*.json ./
+
+COPY . .
+
+RUN npm install && \
+    npm run build
+
+EXPOSE 4000
+
+CMD [ "npm", "run", "seedDb", "&" ,"npm", "run", "start:prod"]
