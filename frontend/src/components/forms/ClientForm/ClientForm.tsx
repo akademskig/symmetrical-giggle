@@ -10,9 +10,12 @@ import { SUBMIT_CLIENT_DATA } from '../../../apollo/client';
 import { getClientId, setClient } from '../../../redux/client';
 import { useSelector } from 'react-redux';
 import { useAvalableProducts } from '../../hooks/useAvailableProducts';
+import { useIntl } from 'react-intl';
+import { messages } from './clientForm.messages';
 
 const ClientForm = () => {
   const dispatch = useDispatch();
+  const { formatMessage } = useIntl();
   const {
     register,
     handleSubmit,
@@ -29,8 +32,7 @@ const ClientForm = () => {
 
   const { refetch } = useAvalableProducts();
   const clientId = useSelector(getClientId);
-  const [submitClientData, { error: errorClient }] =
-    useMutation(SUBMIT_CLIENT_DATA);
+  const [submitClientData] = useMutation(SUBMIT_CLIENT_DATA);
 
   const onSubmit = useCallback(
     async (values: any) => {
@@ -45,7 +47,7 @@ const ClientForm = () => {
 
   return (
     <div className={styles.root}>
-      <h3 className={styles.title}>Client data</h3>
+      <h3 className={styles.title}>{formatMessage(messages.formTitle)}</h3>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <div className={styles.formFields}>
           {clientFormFields.map((f, i) => (
@@ -54,10 +56,9 @@ const ClientForm = () => {
               registerFields={register(f.id, {
                 valueAsNumber: f.type === 'number',
                 required: {
-                  message: `${f.label.substring(
-                    0,
-                    f.label.length - 1
-                  )} is required!`,
+                  message: formatMessage(messages.errorRequired, {
+                    label: f.label.substring(0, f.label.length - 1),
+                  }),
                   value: f.required,
                 },
               })}
@@ -67,7 +68,7 @@ const ClientForm = () => {
             />
           ))}
         </div>
-        <Button type="submit">Save</Button>
+        <Button type="submit">{formatMessage(messages.save)}</Button>
       </form>
     </div>
   );

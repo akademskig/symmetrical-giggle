@@ -24,7 +24,7 @@ const clientFormFields = [
     label: 'Vehicle Power*',
     id: 'vehiclePower',
     required: true,
-    defaultValue: 0,
+    defaultValue: '',
     type: 'number',
   },
   {

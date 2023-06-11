@@ -2,6 +2,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import ClientInsurancePage from './components/pages/ClientInsurancePage/ClientInsurancePage';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { IntlProvider } from 'react-intl';
 
 const client = new ApolloClient({
   connectToDevTools: true,
@@ -12,7 +13,9 @@ function App() {
   return (
     <Provider store={store}>
       <ApolloProvider client={client}>
-        <ClientInsurancePage />
+        <IntlProvider locale="hr">
+          <ClientInsurancePage />
+        </IntlProvider>
       </ApolloProvider>
     </Provider>
   );
