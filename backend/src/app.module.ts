@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
-import { ClientsModule } from './clients/clients.module';
+import { CustomerModule } from './customer/customer.module';
 import mongooseModule from './database';
 import { ConfigModule } from '@nestjs/config';
 import { ProductsModule } from './products/products.module';
@@ -17,7 +17,7 @@ import { CartModule } from './cart/cart.module';
       sortSchema: true,
     }),
     mongooseModule,
-    ClientsModule,
+    CustomerModule,
     ProductsModule,
     CartModule,
   ],

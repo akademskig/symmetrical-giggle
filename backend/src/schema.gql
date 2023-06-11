@@ -18,7 +18,11 @@ type CartProduct {
   type: ProductTypes!
 }
 
-type Client {
+enum Currency {
+  EUR
+}
+
+type Customer {
   _id: ID!
   birthDate: String!
   cart: Cart!
@@ -29,17 +33,13 @@ type Client {
   voucher: Int
 }
 
-enum Currency {
-  EUR
-}
-
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
 
 input GetAvailableProductsInput {
-  clientId: ID!
+  customerId: ID!
 }
 
 type GetAvailableProductsResponse {
@@ -55,7 +55,7 @@ type GetAvailableProductsResponse {
 
 type Mutation {
   cart(input: ToggleProductInput!): Cart!
-  client(input: SubmitClientDataInput!): Client!
+  customer(input: SubmitCustomerDataInput!): Customer!
 }
 
 type Price {
@@ -83,7 +83,7 @@ type Query {
   test: String!
 }
 
-input SubmitClientDataInput {
+input SubmitCustomerDataInput {
   birthDate: DateTime!
   city: String!
   name: String!
@@ -93,7 +93,7 @@ input SubmitClientDataInput {
 }
 
 input ToggleProductInput {
-  clientId: ID!
+  customerId: ID!
   productId: ID!
 }
 

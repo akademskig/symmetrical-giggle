@@ -41,7 +41,7 @@ export class Cart {
 
 @Schema()
 @ObjectType()
-export class Client {
+export class Customer {
   @Field(() => ID, { nullable: false })
   _id: ObjectId;
 
@@ -74,5 +74,5 @@ export class Client {
   cart: Cart;
 }
 
-export const ClientSchema = SchemaFactory.createForClass(Client);
-ClientSchema.index({ name: 1 }, { unique: true });
+export const CustomerSchema = SchemaFactory.createForClass(Customer);
+CustomerSchema.index({ name: 1 }, { unique: true });

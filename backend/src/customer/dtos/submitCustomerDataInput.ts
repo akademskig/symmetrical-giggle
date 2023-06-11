@@ -1,7 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class SubmitClientDataInput {
+export class SubmitCustomerDataInput {
   @Field(() => String, { nullable: false })
   name: string;
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Client } from 'src/clients/clients.schema';
+import { Customer } from 'src/customer/customer.schema';
 import { ProductsService } from 'src/products/products.service';
 import { ObjectId } from 'mongodb';
 import { ToggleProductInput } from './dtos/toggleProductInput';
@@ -10,23 +10,23 @@ import { CalculationService } from './calculation.service';
 @Injectable()
 export class CartService {
   constructor(
-    @InjectModel(Client.name) private clientModel: Model<Client>,
+    @InjectModel(Customer.name) private customerModel: Model<Customer>,
     private productService: ProductsService,
     private calculationService: CalculationService
   ) {}
 
   async toggleProduct(input: ToggleProductInput) {
-    const { clientId, productId } = input;
-    const client = await this.clientModel.findById(
-      { _id: clientId },
+    const { customerId, productId } = input;
+    const customer = await this.customerModel.findById(
+      { _id: customerId },
       { cart: 1 }
     );
-    const product = client.cart.products.find(
+    const product = customer.cart.products.find(
       (p) => p._id.toString() === productId.toString()
     );
 
-    const r = await this.clientModel.updateOne(
-      { _id: clientId },
+    const r = await this.customerModel.updateOne(
+      { _id: customerId },
       {
         $pull: {
           'cart.products': product,
@@ -34,8 +34,8 @@ export class CartService {
       }
     );
     if (r.acknowledged === false) {
-      await this.clientModel.updateOne(
-        { _id: clientId },
+      await this.customerModel.updateOne(
+        { _id: customerId },
         {
           $addToSet: {
             'cart.products': { _id: productId },
@@ -45,24 +45,24 @@ export class CartService {
     }
     return this.updateSelectedProducts(input);
   }
-  async updateSelectedProducts({ clientId }: { clientId: ObjectId }) {
-    const client = await this.clientModel.findOne({ _id: clientId });
+  async updateSelectedProducts({ customerId }: { customerId: ObjectId }) {
+    const customer = await this.customerModel.findOne({ _id: customerId });
     const cartProductsIds =
-      client?.cart.products?.map((p) => p._id.toString()) || [];
+      customer?.cart.products?.map((p) => p._id.toString()) || [];
     const availableProducts = await this.productService.getAvailableProducts({
-      clientId,
+      customerId,
     });
     const updated = availableProducts.filter(
       (ap) => cartProductsIds.includes(ap._id.toString()) || ap.mandatory
     );
-    await this.clientModel.updateOne(
-      { _id: clientId },
+    await this.customerModel.updateOne(
+      { _id: customerId },
       {
         $set: {
           'cart.products': updated,
         },
       }
     );
-    return this.calculationService.calculatePrices({ clientId });
+    return this.calculationService.calculatePrices({ customerId });
   }
 }

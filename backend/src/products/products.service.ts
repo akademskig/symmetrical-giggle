@@ -4,23 +4,23 @@ import { Product, ProductType } from './products.schema';
 import { Model } from 'mongoose';
 import { GetAvailableProductsInput } from './dtos/getAvailableProducts.input';
 import * as moment from 'moment';
-import { Client } from 'src/clients/clients.schema';
+import { Customer } from 'src/customer/customer.schema';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectModel(Product.name) private productModel: Model<Product>,
-    @InjectModel(Client.name) private clientModel: Model<Client>
+    @InjectModel(Customer.name) private customerModel: Model<Customer>
   ) {}
   async getAvailableProducts(
     getAvailableProductsInput: GetAvailableProductsInput
   ): Promise<Product[]> {
-    const { clientId } = getAvailableProductsInput;
-    const client = await this.clientModel.findById(clientId);
-    if (!client) {
+    const { customerId } = getAvailableProductsInput;
+    const customer = await this.customerModel.findById(customerId);
+    if (!customer) {
       return [];
     }
-    const { birthDate, cart, city, vehiclePower } = client;
+    const { birthDate, cart, city, vehiclePower } = customer;
     const selectedProductsIds = (cart.products || []).map((p) => p._id);
     const coveragesCount = await this.productModel
       .find({

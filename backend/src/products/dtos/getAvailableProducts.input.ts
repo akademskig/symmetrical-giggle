@@ -4,5 +4,5 @@ import { ObjectId } from 'mongodb';
 @InputType()
 export class GetAvailableProductsInput {
   @Field(() => ID, { nullable: false })
-  clientId: ObjectId;
+  customerId: ObjectId;
 }

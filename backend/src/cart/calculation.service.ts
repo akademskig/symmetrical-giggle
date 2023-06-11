@@ -2,13 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { round } from 'lodash';
-import { CartProduct, Client } from 'src/clients/clients.schema';
+import { CartProduct, Customer } from 'src/customer/customer.schema';
 import { PriceBase, ProductType } from 'src/products/products.schema';
 import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class CalculationService {
-  constructor(@InjectModel(Client.name) private clientModel: Model<Client>) {}
+  constructor(
+    @InjectModel(Customer.name) private customerModel: Model<Customer>
+  ) {}
 
   private getProductPrice({
     cartProduct,
@@ -155,13 +157,13 @@ export class CalculationService {
       newBase,
     };
   };
-  async calculatePrices({ clientId }: { clientId: ObjectId }) {
-    const client = await this.clientModel.findOne({ _id: clientId });
+  async calculatePrices({ customerId }: { customerId: ObjectId }) {
+    const customer = await this.customerModel.findOne({ _id: customerId });
 
-    const cartProducts = client.cart.products;
-    const vehiclePower = client.vehiclePower;
-    const voucher = client.voucher || 0;
-    const priceMatch = client.priceMatch || 0;
+    const cartProducts = customer.cart.products;
+    const vehiclePower = customer.vehiclePower;
+    const voucher = customer.voucher || 0;
+    const priceMatch = customer.priceMatch || 0;
     const baseCoverage = cartProducts.find(
       (cp) => cp.type === ProductType.BASE_COVERAGE
     );
@@ -187,8 +189,8 @@ export class CalculationService {
       : productsWithPricesInitial;
     const totalPrice = priceMatch ? newTotal : totalPriceInitial;
     const basePrice = priceMatch ? newBase : basePriceInitial;
-    await this.clientModel.updateOne(
-      { _id: clientId },
+    await this.customerModel.updateOne(
+      { _id: customerId },
       {
         $set: {
           'cart.products': productsWithPrices,
@@ -197,6 +199,6 @@ export class CalculationService {
         },
       }
     );
-    return this.clientModel.findOne({ _id: clientId }, { cart: 1 });
+    return this.customerModel.findOne({ _id: customerId }, { cart: 1 });
   }
 }

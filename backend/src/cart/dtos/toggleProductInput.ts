@@ -4,7 +4,7 @@ import { ObjectId } from 'mongodb';
 @InputType()
 export class ToggleProductInput {
   @Field(() => ID, { nullable: false })
-  clientId: ObjectId;
+  customerId: ObjectId;
 
   @Field(() => ID, { nullable: false })
   productId: ObjectId;

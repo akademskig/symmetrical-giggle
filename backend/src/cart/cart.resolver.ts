@@ -1,5 +1,5 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { Cart } from 'src/clients/clients.schema';
+import { Cart } from 'src/customer/customer.schema';
 import { ToggleProductInput } from './dtos/toggleProductInput';
 import { CartService } from './cart.service';
 
