@@ -41,6 +41,11 @@ export const getCartCoverages = createSelector(
       (p) => p.type === ProductType.COVERAGE || p.type === ProductType.SURCHARGE
     ) || []
 );
+export const getCartBaseCoverage = createSelector(selectSelf, (state) =>
+  (state.client?.cart?.products || []).find(
+    (p) => p.type === ProductType.BASE_COVERAGE
+  )
+);
 export const getCartDiscounts = createSelector(
   selectSelf,
   (state) =>
