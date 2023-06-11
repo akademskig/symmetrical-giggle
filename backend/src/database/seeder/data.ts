@@ -3,7 +3,7 @@ import { Currency, PriceBase, ProductType } from 'src/products/products.schema';
 export const products = [
   {
     type: ProductType.BASE_COVERAGE,
-    name: 'Base insurance',
+    name: 'Base Coverage',
     priceBase: PriceBase.FIXED_PRICE,
     currency: Currency.EUR,
     prices: [

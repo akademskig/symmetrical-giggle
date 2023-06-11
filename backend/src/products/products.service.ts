@@ -10,10 +10,10 @@ import { Client } from 'src/clients/clients.schema';
 export class ProductsService {
   constructor(
     @InjectModel(Product.name) private productModel: Model<Product>,
-    @InjectModel(Client.name) private clientModel: Model<Client>,
+    @InjectModel(Client.name) private clientModel: Model<Client>
   ) {}
   async getAvailableProducts(
-    getAvailableProductsInput: GetAvailableProductsInput,
+    getAvailableProductsInput: GetAvailableProductsInput
   ): Promise<Product[]> {
     const { clientId } = getAvailableProductsInput;
     const client = await this.clientModel.findById(clientId);

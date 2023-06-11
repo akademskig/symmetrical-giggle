@@ -7,11 +7,11 @@ import { products } from './data';
 @Injectable()
 export class SeederService {
   constructor(
-    @InjectModel(Product.name) private productModel: Model<Product>,
+    @InjectModel(Product.name) private productModel: Model<Product>
   ) {}
   async seedDb() {
     const models = await Promise.all(
-      products.map((p) => this.productModel.create(p)),
+      products.map((p) => this.productModel.create(p))
     );
     await this.productModel.insertMany(models);
   }
