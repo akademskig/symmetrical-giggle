@@ -1,4 +1,4 @@
-const clientFormFields = [
+const customerFormFields = [
   {
     label: 'Name*',
     id: 'name',
@@ -43,4 +43,4 @@ const clientFormFields = [
   },
 ];
 
-export default clientFormFields;
+export default customerFormFields;

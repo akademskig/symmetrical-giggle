@@ -6,7 +6,7 @@ import customerFormFields from './customerFormFields';
 import Button from '../../common/Button/Button';
 import { useMutation } from '@apollo/client';
 import { useDispatch } from 'react-redux';
-import { SUBMIT_CLIENT_DATA } from '../../../apollo/customer';
+import { SUBMIT_CUSTOMER_DATA } from '../../../apollo/customer';
 import { getCustomerId, setCustomer } from '../../../redux/customer';
 import { useSelector } from 'react-redux';
 import { useAvalableProducts } from '../../hooks/useAvailableProducts';
@@ -32,7 +32,7 @@ const CustomerForm = () => {
 
   const { refetch } = useAvalableProducts();
   const customerId = useSelector(getCustomerId);
-  const [submitCustomerData] = useMutation(SUBMIT_CLIENT_DATA);
+  const [submitCustomerData] = useMutation(SUBMIT_CUSTOMER_DATA);
 
   const onSubmit = useCallback(
     async (values: any) => {
