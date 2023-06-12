@@ -28,9 +28,9 @@ type Customer {
   cart: Cart!
   city: String!
   name: String!
-  priceMatch: Float
+  priceMatch: Float!
   vehiclePower: Int!
-  voucher: Int
+  voucher: Int!
 }
 
 """
