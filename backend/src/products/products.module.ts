@@ -8,7 +8,9 @@ import { Customer, CustomerSchema } from 'src/customer/customer.schema';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
-    MongooseModule.forFeature([{ name: Customer.name, schema: CustomerSchema }]),
+    MongooseModule.forFeature([
+      { name: Customer.name, schema: CustomerSchema },
+    ]),
   ],
   providers: [ProductsResolver, ProductsService],
 })
