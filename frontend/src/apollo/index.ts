@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const client = new ApolloClient({
   connectToDevTools: true,
-  uri: 'http://localhost:4000/graphql',
+  uri: process.env.REACT_APP_BACKEND_URL,
   cache: new InMemoryCache(),
 });
 

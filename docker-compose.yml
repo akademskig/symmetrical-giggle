@@ -7,6 +7,12 @@ services:
     restart: always
     networks:
       - kompare-app
+    env_file: 
+     - frontend/.env.production
+    environment: 
+     - prod
+    depends_on:
+    - backend
 
   backend:
     build: ./backend
@@ -15,8 +21,13 @@ services:
     restart: always
     networks:
       - kompare-app
+    env_file: 
+      - backend/.env.production
+    environment: 
+     - prod
     depends_on:
       - database
+    command: sh -c "npm run seedDb && npm run start:prod"
 
   database:
     image: mongo
