@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product } from 'src/products/products.schema';
 import { products } from './data';
+import { DeleteResult } from 'mongodb';
 
 @Injectable()
 export class SeederService {
@@ -13,9 +14,9 @@ export class SeederService {
     const models = await Promise.all(
       products.map((p) => this.productModel.create(p))
     );
-    await this.productModel.insertMany(models);
+    return Promise.all(models.map((m) => m.save()));
   }
-  async clearDb() {
-    await this.productModel.deleteMany({});
+  async clearDb(): Promise<DeleteResult> {
+    return this.productModel.deleteMany();
   }
 }
