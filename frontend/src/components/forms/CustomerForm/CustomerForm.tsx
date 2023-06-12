@@ -7,11 +7,11 @@ import Button from '../../common/Button/Button';
 import { useMutation } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { SUBMIT_CUSTOMER_DATA } from '../../../apollo/customer';
-import { getCustomerId, setCustomer } from '../../../redux/customer';
-import { useSelector } from 'react-redux';
+import { setCustomer } from '../../../redux/customer';
 import { useAvalableProducts } from '../../hooks/useAvailableProducts';
 import { useIntl } from 'react-intl';
 import { messages } from './customerForm.messages';
+import useCustomers from '../../hooks/useCustomers';
 
 const CustomerForm = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const CustomerForm = () => {
   });
 
   const { refetch } = useAvalableProducts();
-  const customerId = useSelector(getCustomerId);
+  const { refetchCustomers } = useCustomers();
   const [submitCustomerData] = useMutation(SUBMIT_CUSTOMER_DATA);
 
   const onSubmit = useCallback(
@@ -40,9 +40,10 @@ const CustomerForm = () => {
         variables: { input: values },
       });
       dispatch(setCustomer(customerData.customer));
-      await refetch({ input: { customerId } });
+      await refetch({ input: { customerId: customerData.customer._id } });
+      refetchCustomers();
     },
-    [customerId, dispatch, refetch, submitCustomerData]
+    [dispatch, refetch, refetchCustomers, submitCustomerData]
   );
 
   return (

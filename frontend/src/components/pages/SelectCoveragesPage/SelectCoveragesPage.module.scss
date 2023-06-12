@@ -8,3 +8,9 @@
   margin-top: 8vh;
   flex-direction: column;
 }
+.priceTable {
+  padding: $padding-l;
+  border: solid 1px $gray-1;
+  border-radius: $border-radius-m;
+  margin-top: 1rem;
+}

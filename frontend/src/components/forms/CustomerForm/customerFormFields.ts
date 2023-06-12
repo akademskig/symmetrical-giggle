@@ -21,7 +21,7 @@ const customerFormFields = [
     type: 'text',
   },
   {
-    label: 'Vehicle Power*',
+    label: 'Vehicle Power (kW)*',
     id: 'vehiclePower',
     required: true,
     defaultValue: '',

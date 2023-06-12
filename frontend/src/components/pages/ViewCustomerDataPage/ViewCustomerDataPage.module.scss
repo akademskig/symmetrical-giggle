@@ -1,0 +1,38 @@
+@import '../../../styles/variables.scss';
+
+.title {
+  margin: $padding-xl 0 0 $padding-xl;
+  text-transform: uppercase;
+}
+.list {
+  align-items: flex-start;
+  display: flex;
+  padding: $padding-m $padding-l;
+  flex-wrap: wrap;
+}
+.customer {
+  margin: $padding-m;
+  display: flex;
+  align-items: self-start;
+  font-size: 0.9rem;
+}
+
+.table {
+  margin-right: 0.2rem;
+  display: flex;
+  align-items: center;
+  > thead {
+    text-align: left;
+  }
+}
+table {
+  border-collapse: collapse;
+}
+
+th,
+tr,
+td {
+  border-collapse: collapse;
+  border: solid 1px rgb(217, 217, 235);
+  padding: 0.2rem;
+}

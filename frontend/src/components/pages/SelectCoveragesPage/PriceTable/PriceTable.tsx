@@ -1,25 +1,43 @@
-import { useSelector } from 'react-redux';
-import {
-  getCart,
-  getCartBaseCoverage,
-  getCartCoverages,
-  getCartDiscounts,
-  getVoucher,
-} from '../../../../redux/customer';
 import styles from './PriceTable.module.scss';
 import { ProductType } from '../../../../types/product';
 import { useIntl } from 'react-intl';
 import { messages } from './priceTable.messages';
+import { useMemo } from 'react';
+import { Customer } from '../../../../types/customer';
 
-const Prices = () => {
+type Props = {
+  customer: Customer;
+};
+const PriceTable = ({ customer }: Props) => {
   const { formatMessage, formatNumber } = useIntl();
-  const cart = useSelector(getCart);
-  const voucher = useSelector(getVoucher);
-  const coverages = useSelector(getCartCoverages).sort((a, b) =>
-    a.type === ProductType.BASE_COVERAGE ? -1 : 1
+  const cart = customer?.cart;
+  const voucher = customer.voucher;
+  const coverages = useMemo(
+    () =>
+      (customer.cart?.products || [])
+        .filter(
+          (p) =>
+            p.type === ProductType.COVERAGE || p.type === ProductType.SURCHARGE
+        )
+        .sort((a, b) => (a.type === ProductType.BASE_COVERAGE ? -1 : 1)),
+    [customer.cart?.products]
   );
-  const baseCoverage = useSelector(getCartBaseCoverage);
-  const discounts = useSelector(getCartDiscounts);
+
+  const discounts = useMemo(
+    () =>
+      (customer.cart?.products || []).filter(
+        (p) => p.type === ProductType.DISCOUNT
+      ),
+    [customer.cart?.products]
+  );
+
+  const baseCoverage = useMemo(
+    () =>
+      (customer.cart?.products || []).find(
+        (p) => p.type === ProductType.BASE_COVERAGE
+      ),
+    [customer.cart?.products]
+  );
   return (
     <>
       {cart ? (
@@ -131,4 +149,4 @@ const Prices = () => {
   );
 };
 
-export default Prices;
+export default PriceTable;

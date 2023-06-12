@@ -1,14 +1,10 @@
 @import '../../../../styles/variables.scss';
 
 .root {
-  padding: $padding-l;
   margin: 0 auto;
   max-width: 450px;
   min-width: 350px;
-  border: solid 1px $gray-1;
-  margin-top: 1rem;
   border-color: rgb(225, 225, 243);
-  border-radius: $border-radius-m;
   font-size: 0.9rem;
   table {
     width: 100%;
