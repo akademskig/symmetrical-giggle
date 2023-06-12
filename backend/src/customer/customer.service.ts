@@ -20,6 +20,9 @@ export class CustomerService {
     const customer = new this.customerModel(input);
     return customer.save();
   }
+  async findAll() {
+    return this.customerModel.find();
+  }
   async submitCustomerData(input: SubmitCustomerDataInput) {
     const existing = await this.customerModel.findOne({
       name: input.name,

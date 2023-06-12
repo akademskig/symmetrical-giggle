@@ -16,4 +16,8 @@ export class CustomerResolver {
   async submitCustomerData(@Args('input') input: SubmitCustomerDataInput) {
     return this.customerService.submitCustomerData(input);
   }
+  @Query(() => [Customer], { name: 'customers' })
+  async findAll() {
+    return this.customerService.findAll();
+  }
 }

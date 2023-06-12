@@ -3,6 +3,10 @@ import styles from './Header.module.scss';
 
 import { useToggleProducts } from '../../../hooks/useToggleProducts';
 import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { FaArrowAltCircleRight } from 'react-icons/fa';
+import { useIntl } from 'react-intl';
+import { messages } from './header.messages';
 
 const Header = () => {
   const { cartProducts, discounts, onToggle } = useToggleProducts();
@@ -10,19 +14,28 @@ const Header = () => {
     () => cartProducts.map((p) => p._id),
     [cartProducts]
   );
+  const { formatMessage } = useIntl();
   return (
     <div className={styles.root}>
-      {(discounts || []).map((d, i) => (
-        <div key={i} className={styles.item}>
-          <Checkbox
-            name={d._id}
-            disabled={d.mandatory}
-            checked={selectedProductIds.includes(d._id)}
-            label={d.name}
-            onToggle={onToggle}
-          />
+      <div className={styles.items}>
+        {(discounts || []).map((d, i) => (
+          <div key={i} className={styles.item}>
+            <Checkbox
+              name={d._id}
+              disabled={d.mandatory}
+              checked={selectedProductIds.includes(d._id)}
+              label={d.name}
+              onToggle={onToggle}
+            />
+          </div>
+        ))}
+      </div>
+      <Link to="view-customer-data">
+        <div className={styles.link}>
+          <span>{formatMessage(messages.viewCustomerData)}</span>
+          <FaArrowAltCircleRight className={styles.rightArrow} />
         </div>
-      ))}
+      </Link>
     </div>
   );
 };

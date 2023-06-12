@@ -79,6 +79,7 @@ enum ProductType {
 }
 
 type Query {
+  customers: [Customer!]!
   products(input: GetAvailableProductsInput!): [GetAvailableProductsResponse!]!
   test: String!
 }

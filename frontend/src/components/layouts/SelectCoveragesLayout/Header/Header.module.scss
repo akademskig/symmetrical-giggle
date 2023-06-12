@@ -5,10 +5,32 @@
   align-items: center;
   gap: 0.5em;
   background-color: $primary-main;
-  padding: $padding-m;
+  padding: $padding-l;
+  justify-content: space-between;
 }
 
 .item {
-  color: $gray-1;
-  padding: $padding-m;
+  color: $white;
+  padding-right: $padding-m;
+}
+
+.items {
+  display: flex;
+}
+
+.rightArrow {
+  margin-left: 0.4rem;
+}
+
+.link {
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  text-transform: uppercase;
+  align-self: flex-end;
+  &:hover {
+    color: $secondary-light;
+  }
 }

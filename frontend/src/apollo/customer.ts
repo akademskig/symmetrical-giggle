@@ -16,8 +16,8 @@ export const CUSTOMER_FRAGMENT = gql`
   ${CART_FRAGMENT}
 `;
 export const GET_CUSTOMERS = gql`
-  query findAll($query: GetCustomersInput) {
-    customers(query: $query) {
+  query findAll {
+    customers {
       ...CustomerFragment
     }
   }
@@ -30,12 +30,4 @@ export const SUBMIT_CUSTOMER_DATA = gql`
     }
   }
   ${CUSTOMER_FRAGMENT}
-`;
-
-export const REMOVE_CUSTOMER = gql`
-  mutation removeCustomer($id: String!) {
-    removeCustomer(id: $id) {
-      id
-    }
-  }
 `;

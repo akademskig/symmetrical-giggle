@@ -24,15 +24,3 @@
     background-color: lighten($primary-main, 5);
   }
 }
-.link {
-  text-decoration: none;
-  &:hover {
-    color: $secondary-light;
-  }
-}
-.rounded {
-  border-radius: 4px;
-}
-.active {
-  color: $secondary-light;
-}
