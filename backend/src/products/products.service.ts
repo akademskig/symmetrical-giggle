@@ -46,30 +46,23 @@ export class ProductsService {
                 {
                   $or: [
                     {
-                      'prices.validFor.age.min': { $lte: age },
+                      'prices.validFor.ageMin': { $lte: age },
                     },
                     {
-                      'prices.validFor.age.max': { $gt: age },
+                      'prices.validFor.ageMax': { $gt: age },
                     },
                     {
-                      $and: [
-                        {
-                          'prices.validFor.cities': {
-                            $elemMatch: {
-                              $in: [city, '$prices.validFor.cities'],
-                            },
-                          },
+                      'prices.validFor.cities': {
+                        $elemMatch: {
+                          $in: [city, '$prices.validFor.cities'],
                         },
-                        {
-                          'prices.validFor.age.min': { $lte: age },
-                        },
-                      ],
+                      },
                     },
                     {
-                      'prices.validFor.vehiclePower.min': { $lt: vehiclePower },
+                      'prices.validFor.vehiclePowerMin': { $lt: vehiclePower },
                     },
                     {
-                      'prices.validFor.coverageAmount.min': {
+                      'prices.validFor.coverageAmountMin': {
                         $lt: coveragesCount,
                       },
                     },

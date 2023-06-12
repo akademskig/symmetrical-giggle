@@ -15,7 +15,7 @@ type CartProduct {
   name: String!
   price: Float!
   priceBase: PriceBase!
-  type: ProductTypes!
+  type: ProductType!
 }
 
 enum Currency {
@@ -50,7 +50,7 @@ type GetAvailableProductsResponse {
   name: String!
   priceBase: PriceBase!
   prices: [Price!]!
-  type: ProductTypes!
+  type: ProductType!
 }
 
 type Mutation {
@@ -71,7 +71,7 @@ enum PriceBase {
   VEHICLE_POWER
 }
 
-enum ProductTypes {
+enum ProductType {
   BASE_COVERAGE
   COVERAGE
   DISCOUNT
@@ -98,13 +98,9 @@ input ToggleProductInput {
 }
 
 type ValidFor {
-  age: ValidForLimits
+  ageMax: Int
+  ageMin: Int
   cities: [String!]
-  coverageAmount: ValidForLimits
-  vehiclePower: ValidForLimits
-}
-
-type ValidForLimits {
-  max: Float!
-  min: Float
+  coverageAmountMin: Int
+  vehiclePowerMin: Int
 }

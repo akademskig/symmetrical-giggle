@@ -9,7 +9,7 @@ export const products = [
     prices: [
       {
         amount: 120,
-        validFor: { age: { min: 30 }, cities: ['Zagreb', 'Rijeka'] },
+        validFor: { ageMin: 30, cities: ['Zagreb', 'Rijeka'] },
       },
       {
         amount: 150,
@@ -29,7 +29,7 @@ export const products = [
     prices: [
       {
         amount: 30,
-        validFor: { age: { max: 30 } },
+        validFor: { ageMax: 30 },
       },
       {
         amount: 105,
@@ -66,7 +66,7 @@ export const products = [
     prices: [
       {
         amount: 5,
-        validFor: { vehiclePower: { min: 80 } },
+        validFor: { vehiclePowerMin: 80 },
       },
     ],
     mandatory: true,
@@ -93,7 +93,7 @@ export const products = [
     prices: [
       {
         amount: 20,
-        validFor: { coverageAmount: { min: 2 } },
+        validFor: { coverageAmountMin: 2 },
       },
     ],
   },
@@ -105,7 +105,7 @@ export const products = [
     prices: [
       {
         amount: 10,
-        validFor: { vehiclePower: { min: 100 } },
+        validFor: { vehiclePowerMin: 100 },
       },
     ],
     mandatory: true,

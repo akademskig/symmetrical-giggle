@@ -2,11 +2,13 @@ import {
   Field,
   Float,
   ID,
+  Int,
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ObjectId } from 'mongodb';
+import { Types } from 'mongoose';
 
 export enum ProductType {
   DISCOUNT,
@@ -25,7 +27,7 @@ export enum PriceBase {
   COVERAGES_TOTAL,
 }
 registerEnumType(ProductType, {
-  name: 'ProductTypes',
+  name: 'ProductType',
 });
 registerEnumType(PriceBase, {
   name: 'PriceBase',
@@ -34,72 +36,71 @@ registerEnumType(Currency, {
   name: 'Currency',
 });
 
-@ObjectType()
-export class ValidForLimits {
-  @Field(() => Number, { nullable: true })
-  min: number;
-  @Field(() => Number, { nullable: false })
-  max: number;
-}
-
+@Schema()
 @ObjectType()
 export class ValidFor {
-  @Field(() => ValidForLimits, { nullable: true })
-  @Prop({ type: ValidForLimits })
-  age: { min?: number; max?: number };
+  @Field(() => Int, { nullable: true })
+  @Prop({ type: Number })
+  ageMin: number;
 
-  @Field(() => ValidForLimits, { nullable: true })
-  @Prop({ type: ValidForLimits })
-  vehiclePower: { min?: number; max?: number };
+  @Field(() => Int, { nullable: true })
+  @Prop({ type: Number })
+  ageMax: number;
 
-  @Field(() => ValidForLimits, { nullable: true })
-  @Prop({ type: ValidForLimits })
-  coverageAmount: { min?: number; max?: number };
+  @Field(() => Int, { nullable: true })
+  @Prop({ type: Number })
+  vehiclePowerMin: number;
+
+  @Field(() => Int, { nullable: true })
+  @Prop({ type: Number })
+  coverageAmountMin: number;
 
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String] })
   cities: string[];
 }
+const ValidForSchema = SchemaFactory.createForClass(ValidFor);
 
+@Schema()
 @ObjectType()
 export class Price {
   @Field(() => ValidFor, { nullable: true })
-  @Prop({ required: false })
+  @Prop({ type: ValidForSchema, required: false })
   validFor: ValidFor;
 
   @Field(() => Float, { nullable: false })
-  @Prop({ required: true })
+  @Prop({ type: Number, required: true })
   amount: number;
 }
-
+const PriceSchema = SchemaFactory.createForClass(Price);
 @Schema()
 @ObjectType()
 export class Product {
   @Field(() => ID)
   _id: ObjectId;
 
-  @Field(() => String, { nullable: false })
-  @Prop({ required: true })
+  @Field(() => String)
+  @Prop({ type: String, required: true })
   name: string;
 
-  @Field(() => Currency, { nullable: false })
-  @Prop({ required: true })
+  @Field(() => Currency)
+  @Prop({ type: Number, enum: Currency, required: true })
   currency: Currency;
 
-  @Field(() => ProductType, { nullable: false })
-  @Prop({ required: true })
+  @Field(() => ProductType)
+  @Prop({ type: Number, enum: ProductType, required: true })
   type: ProductType;
 
   @Field(() => [Price], { nullable: false })
-  @Prop({ required: true })
+  @Prop({ type: [PriceSchema], required: true })
   prices: Price[];
 
   @Field(() => PriceBase, { nullable: false })
-  @Prop({ required: true })
+  @Prop({ type: Number, enum: PriceBase, required: true })
   priceBase: PriceBase;
 
   @Field(() => Boolean, { nullable: true })
-  @Prop()
+  @Prop({ type: Boolean })
   mandatory: boolean;
 }
 
