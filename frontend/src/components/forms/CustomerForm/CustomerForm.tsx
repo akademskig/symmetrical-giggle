@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './CustomerForm.module.scss';
 import Input from '../../common/Input/Input';
@@ -7,27 +7,47 @@ import Button from '../../common/Button/Button';
 import { useMutation } from '@apollo/client';
 import { useDispatch } from 'react-redux';
 import { SUBMIT_CUSTOMER_DATA } from '../../../apollo/customer';
-import { setCustomer } from '../../../redux/customer';
+import { getCustomer, setCustomer } from '../../../redux/customer';
 import { useAvalableProducts } from '../../hooks/useAvailableProducts';
 import { useIntl } from 'react-intl';
 import { messages } from './customerForm.messages';
 import useCustomers from '../../hooks/useCustomers';
+import { useSelector } from 'react-redux';
 
 const CustomerForm = () => {
   const dispatch = useDispatch();
   const { formatMessage } = useIntl();
+  const customer = useSelector(getCustomer);
+  const defaultValues = useMemo(() => {
+    if (Object.keys(customer).length) {
+      const { name, birthDate, city, vehiclePower, voucher, priceMatch } =
+        customer || {};
+      const formattedDate =
+        new Date(Number(birthDate)).toISOString().split('T')?.[0] || '';
+      return {
+        name,
+        birthDate: formattedDate,
+        city,
+        vehiclePower,
+        voucher,
+        priceMatch,
+      };
+    } else {
+      return customerFormFields.reduce<Record<string, string | number>>(
+        (a, v) => {
+          a[v.id] = v.defaultValue;
+          return a;
+        },
+        {}
+      );
+    }
+  }, [customer]);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: customerFormFields.reduce<Record<string, string | number>>(
-      (a, v) => {
-        a[v.id] = v.defaultValue;
-        return a;
-      },
-      {}
-    ),
+    defaultValues,
   });
 
   const { refetch } = useAvalableProducts();

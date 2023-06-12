@@ -4,12 +4,13 @@ import { useIntl } from 'react-intl';
 import customerFormFields from '../../forms/CustomerForm/customerFormFields';
 import PriceTable from '../SelectCoveragesPage/PriceTable/PriceTable';
 import useCustomers from '../../hooks/useCustomers';
+import { messages } from './viewCustomerDataPage.messages';
 
-const headerFieldsToOmit = ['cart', '__typename', '_id'];
+const headerFieldsToOmit = ['cart', '__typename', '_id', 'priceMatch'];
 
 const ViewCustomerDataPage = () => {
   const { customers } = useCustomers();
-  const { locale } = useIntl();
+  const { locale, formatMessage } = useIntl();
   const headerItems = useMemo(() => {
     return Object.keys(customers[0] || {})
       .filter((item) => !headerFieldsToOmit.includes(item))
@@ -23,7 +24,7 @@ const ViewCustomerDataPage = () => {
 
   return (
     <div className={styles.root}>
-      <h2 className={styles.title}>Saved Customer data</h2>
+      <h2 className={styles.title}>{formatMessage(messages.title)}</h2>
       <div className={styles.list}>
         {(customers || []).map((c, i) => (
           <div className={styles.customer}>

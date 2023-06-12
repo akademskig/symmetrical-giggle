@@ -9,6 +9,7 @@ export const CUSTOMER_FRAGMENT = gql`
     birthDate
     vehiclePower
     voucher
+    priceMatch
     cart {
       ...CartFragment
     }

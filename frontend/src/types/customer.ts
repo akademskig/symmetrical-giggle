@@ -19,9 +19,10 @@ export interface Cart {
 export interface Customer {
   _id: string;
   name: string;
-  birthDate: Date;
+  birthDate: string;
   city: string;
   vehiclePower: string;
   cart: Cart;
   voucher: number;
+  priceMatch: number;
 }
