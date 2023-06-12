@@ -4,7 +4,7 @@
 
 ### Production
 
-* just run `docker-compose up --build -d`
+* just run `npm run docker:up`
 * open the browser on localhost
   
 ### Development
@@ -20,3 +20,9 @@
 ## Seed the database with inital data
 
 * `npm run seedDb`
+
+Note: the command runs when container starts, so its not necessary to run it
+
+## Remove containers
+
+`npm run docker:down`
