@@ -9,7 +9,7 @@ function App() {
   return (
     <Provider store={store}>
       <ApolloProvider client={client}>
-        <IntlProvider locale="hr">
+        <IntlProvider locale="hr" defaultLocale='hr'>
           <SelectCoveragesPage />
         </IntlProvider>
       </ApolloProvider>
