@@ -33,7 +33,6 @@ export class ProductsService {
 
     const birthDateMoment = moment(birthDate);
     const age = moment().diff(birthDateMoment, 'y');
-
     const products = await this.productModel.aggregate([
       { $unwind: { path: '$prices', preserveNullAndEmptyArrays: true } },
       {
@@ -44,27 +43,56 @@ export class ProductsService {
               $and: [
                 { 'prices.validFor': { $exists: true } },
                 {
-                  $or: [
+                  $and: [
                     {
-                      'prices.validFor.ageMin': { $lte: age },
+                      $or: [
+                        { 'prices.validFor.ageMin': { $exists: false } },
+                        { 'prices.validFor.ageMin': { $lte: age } },
+                      ],
                     },
                     {
-                      'prices.validFor.ageMax': { $gt: age },
-                    },
-                    {
-                      'prices.validFor.cities': {
-                        $elemMatch: {
-                          $in: [city, '$prices.validFor.cities'],
+                      $or: [
+                        { 'prices.validFor.cities': { $exists: false } },
+                        {
+                          'prices.validFor.cities': {
+                            $elemMatch: {
+                              $in: [city, '$prices.validFor.cities'],
+                            },
+                          },
                         },
-                      },
+                      ],
                     },
                     {
-                      'prices.validFor.vehiclePowerMin': { $lt: vehiclePower },
+                      $or: [
+                        { 'prices.validFor.ageMax': { $exists: false } },
+                        { 'prices.validFor.ageMax': { $lte: age } },
+                      ],
                     },
                     {
-                      'prices.validFor.coverageAmountMin': {
-                        $lt: coveragesCount,
-                      },
+                      $or: [
+                        {
+                          'prices.validFor.vehiclePowerMin': { $exists: false },
+                        },
+                        {
+                          'prices.validFor.vehiclePowerMin': {
+                            $lt: vehiclePower,
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      $or: [
+                        {
+                          'prices.validFor.coverageAmountMin': {
+                            $exists: false,
+                          },
+                        },
+                        {
+                          'prices.validFor.coverageAmountMin': {
+                            $lte: coveragesCount,
+                          },
+                        },
+                      ],
                     },
                   ],
                 },

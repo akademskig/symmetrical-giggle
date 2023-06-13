@@ -36,7 +36,6 @@ registerEnumType(Currency, {
   name: 'Currency',
 });
 
-@Schema()
 @ObjectType()
 export class ValidFor {
   @Field(() => Int, { nullable: true })
@@ -59,13 +58,11 @@ export class ValidFor {
   @Prop({ type: [String] })
   cities: string[];
 }
-const ValidForSchema = SchemaFactory.createForClass(ValidFor);
-
 @Schema()
 @ObjectType()
 export class Price {
   @Field(() => ValidFor, { nullable: true })
-  @Prop({ type: ValidForSchema, required: false })
+  @Prop({ type: ValidFor, required: false })
   validFor: ValidFor;
 
   @Field(() => Float, { nullable: false })
